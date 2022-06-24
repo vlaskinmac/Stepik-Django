@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
-
+from django.urls import reverse
 # Create your views here.
 
 
@@ -27,7 +27,8 @@ def get_sign_zodiac_by_number(request, sign_zodiac:int):
     if sign_zodiac > len(zodiacs):
         return HttpResponseForbidden(f"Не известный знак зодиака: {sign_zodiac}")
     name_zodiac = zodiacs[sign_zodiac - 1]
-    return HttpResponseRedirect(f"/horoscope/{name_zodiac}")
+    redirect_url = reverse('horoscope-name', args=(name_zodiac,))
+    return HttpResponseRedirect(redirect_url)
 
 
 def get_sign_zodiac(request, sign_zodiac:str):
